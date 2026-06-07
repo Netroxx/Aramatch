@@ -1,0 +1,34 @@
+@startuml
+title Diagrama de Componentes - AraMatch
+
+component "Aplicação Web/Mobile" as App
+component "Painel Administrativo" as Painel
+component "API AraMatch" as API
+
+component "Serviço de Autenticação" as Auth
+component "Serviço de Perfil" as Perfil
+component "Serviço de Recomendação" as Recomendacao
+component "Serviço de Match" as Match
+component "Serviço de Mensagens" as Mensagens
+component "Serviço de Moderação" as Moderacao
+
+database "Banco de Dados" as BD
+
+App --> API
+Painel --> API
+
+API --> Auth
+API --> Perfil
+API --> Recomendacao
+API --> Match
+API --> Mensagens
+API --> Moderacao
+
+Auth --> BD
+Perfil --> BD
+Recomendacao --> BD
+Match --> BD
+Mensagens --> BD
+Moderacao --> BD
+
+@enduml
