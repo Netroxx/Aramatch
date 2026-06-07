@@ -195,31 +195,30 @@ Sugestão de organização do repositório:
 │   ├── AraMatch-Documentacao-de-Projeto.pdf
 │   ├── AraMatch-Documentacao-de-Projeto.docx
 │   └── /diagramas
-│       ├── caso-de-uso.png
-│       ├── sequencia-cadastro.png
-│       ├── sequencia-curtir-match.png
-│       ├── sequencia-mensagem.png
-│       ├── arquitetura-camadas.png
-│       ├── componentes.png
-│       ├── implantacao.png
-│       ├── classes.png
-│       ├── comunicacao.png
-│       ├── estados-match.png
-│       └── modelo-dados.png
-├── /plantuml
-│   ├── caso-de-uso.puml
-│   ├── sequencia-cadastro.puml
-│   ├── sequencia-curtir-match.puml
-│   ├── sequencia-mensagem.puml
-│   ├── arquitetura-camadas.puml
-│   ├── componentes.puml
+│       ├── Arquitetura em Camadas.png
+│       ├── UC-06 Curtir perfil e UC-07 Gerar match.png
+│       ├── Casos de Uso .png
+│       ├── Comunicação.png
+│       ├── Diagrama De Classes.png
+│       ├── Diagrama de Componentes.png
+│       ├── Diagrama de Estados.png
+│       ├── Diagrama de Implantação.png
+│       ├── Modelo De Dados.png
+│       ├── UC-01 Cadastrar-se no sistema.png
+│       └── UC-08 Enviar mensagem .png
+├── /plantUML
+│   ├── Arquitetura em Camadas
+│   ├── Caso de uso
+│   ├── Comunicação
+│   ├── Diagrama de Componentes
+│   ├── Diagrama de Estados
+│   ├── Diagrama de Implantação
 │   ├── implantacao.puml
-│   ├── classes.puml
-│   ├── comunicacao.puml
-│   ├── estados-match.puml
-│   └── modelo-dados.puml
+│   ├── UC-01 Cadastrar-se no sistema
+│   ├── UC-06 Curtir perfil e UC-07 Gerar match
+│   ├── UC-08 Enviar mensagem
 └── /assets
-    └── logo.png
+    └── Aramatch.png
 ```
 
 ---
@@ -314,7 +313,7 @@ Referências e materiais utilizados como apoio para elaboração do projeto:
 
 | 👤 Nome | :octocat: GitHub | 📤 E-mail |
 |---------|-----------------|-----------|
-| Pedro Marçal Ballesteros | [GitHub](<link-github>) | <email-do-autor> |
+| Pedro Marçal Ballesteros | [GitHub]((https://github.com/Netroxx)) | Pedromarcal4@gmail.com|
 
 ---
 
