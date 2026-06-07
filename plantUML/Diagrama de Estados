@@ -1,0 +1,26 @@
+@startuml
+title Diagrama de Estados - Denúncia
+
+[] --> NaoRegistrada
+
+NaoRegistrada --> Pendente : Usuário registra denúncia
+
+Pendente --> EmAnalise : Administrador inicia análise
+Pendente --> Cancelada : Denúncia inválida ou duplicada
+
+EmAnalise --> Procedente : Denúncia confirmada
+EmAnalise --> Improcedente : Denúncia não confirmada
+EmAnalise --> SolicitandoMaisInformacoes : Dados insuficientes
+
+SolicitandoMaisInformacoes --> EmAnalise : Novas informações recebidas
+SolicitandoMaisInformacoes --> Arquivada : Informações não recebidas
+
+Procedente --> MedidaAplicada : Administrador aplica ação
+MedidaAplicada --> Concluida : Status atualizado
+
+Improcedente --> Arquivada : Denúncia encerrada sem punição
+Cancelada --> []
+Arquivada --> []
+Concluida --> []
+
+@enduml
