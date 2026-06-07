@@ -1,0 +1,26 @@
+@startuml
+title Diagrama de Implantação - AraMatch
+
+node "Dispositivo do Usuário" {
+  artifact "Navegador ou Aplicativo Mobile" as Cliente
+}
+
+node "Servidor de Aplicação" {
+  artifact "API AraMatch" as API
+  artifact "Serviços de Domínio" as Servicos
+}
+
+node "Servidor de Banco de Dados" {
+  database "Banco de Dados AraMatch" as BD
+}
+
+node "Dispositivo do Administrador" {
+  artifact "Painel Administrativo" as Admin
+}
+
+Cliente --> API : Requisições HTTPS
+Admin --> API : Requisições HTTPS
+API --> Servicos : Processamento interno
+Servicos --> BD : Consultas e gravações
+
+@enduml
