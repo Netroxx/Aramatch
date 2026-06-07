@@ -1,0 +1,23 @@
+@startuml
+title UC-08 - Enviar mensagem
+
+actor "Usuário universitário" as Usuario
+participant "Sistema AraMatch" as Sistema
+database "Banco de Dados" as BD
+actor "Outro usuário" as OutroUsuario
+
+Usuario -> Sistema : Escrever e enviar mensagem
+Sistema -> BD : Verificar se existe match ativo
+
+alt Não existe match ativo
+    BD --> Sistema : Match inexistente ou inativo
+    Sistema --> Usuario : Informar que o envio não é permitido
+else Existe match ativo
+    BD --> Sistema : Match ativo encontrado
+    Sistema -> BD : Salvar mensagem na conversa
+    BD --> Sistema : Mensagem salva
+    Sistema --> Usuario : Confirmar envio da mensagem
+    Sistema --> OutroUsuario : Notificar nova mensagem
+end
+
+@enduml
