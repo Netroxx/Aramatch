@@ -1,0 +1,28 @@
+@startuml
+title UC-06 - Curtir perfil e UC-07 - Gerar match
+
+actor "Usuário universitário" as Usuario
+participant "Sistema AraMatch" as Sistema
+participant "Sistema de recomendação" as Recomendacao
+database "Banco de Dados" as BD
+
+Usuario -> Sistema : Curtir perfil sugerido
+Sistema -> BD : Registrar curtida do usuário
+
+BD --> Sistema : Curtida registrada
+
+Sistema -> BD : Verificar se o outro usuário já curtiu de volta
+
+alt Não existe curtida mútua
+    BD --> Sistema : Curtida mútua não encontrada
+    Sistema --> Usuario : Curtida registrada
+else Existe curtida mútua
+    BD --> Sistema : Curtida mútua encontrada
+    Sistema -> BD : Criar match entre os usuários
+    BD --> Sistema : Match criado
+    Sistema -> Recomendacao : Atualizar histórico de compatibilidade
+    Recomendacao --> Sistema : Histórico atualizado
+    Sistema --> Usuario : Informar novo match
+end
+
+@enduml
