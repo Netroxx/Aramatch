@@ -1,0 +1,39 @@
+@startuml
+title Diagrama de Comunicação - UC-06/UC-07 Curtir perfil e gerar match
+
+top to bottom direction
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+object "usuario: UsuarioUniversitario" as Usuario
+object "telaSugestoes: TelaSugestoes" as Tela
+object "matchController: MatchController" as Controller
+object "matchService: MatchService" as Service
+object "curtidaRepository: CurtidaRepository" as CurtidaRepo
+object "matchRepository: MatchRepository" as MatchRepo
+
+' Organização visual
+Usuario -[hidden]down-> Tela
+Tela -[hidden]down-> Controller
+Controller -[hidden]down-> Service
+Service -[hidden]down-> CurtidaRepo
+CurtidaRepo -[hidden]right-> MatchRepo
+
+' Mensagens
+Usuario --> Tela : 1. selecionarCurtirPerfil()
+Tela --> Controller : 2. curtirPerfil()
+Controller --> Service : 3. processarCurtida()
+
+Service --> CurtidaRepo : 4. registrarCurtida()
+Service --> CurtidaRepo : 5. verificarCurtidaMutua()
+
+Service --> MatchRepo : 6. criarMatch()
+Service --> MatchRepo : 7. criarConversa()
+
+Service --> Controller : 8. retornarResultado()
+Controller --> Tela : 9. exibirResultado()
+Tela --> Usuario : 10. informarCurtidaOuMatch()
+
+@enduml
