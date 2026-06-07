@@ -1,0 +1,28 @@
+@startuml
+title UC-01 - Cadastrar-se no sistema
+
+actor "Usuário universitário" as Usuario
+participant "Sistema AraMatch" as Sistema
+database "Banco de Dados" as BD
+
+Usuario -> Sistema : Informar dados de cadastro\n(nome, e-mail, senha, universidade, curso)
+Sistema -> Sistema : Validar campos obrigatórios
+
+alt Dados inválidos
+    Sistema --> Usuario : Exibir mensagem de erro
+else Dados válidos
+    Sistema -> BD : Verificar se e-mail já está cadastrado
+
+    alt E-mail já existente
+        BD --> Sistema : E-mail encontrado
+        Sistema --> Usuario : Informar que o e-mail já está em uso
+    else E-mail disponível
+        BD --> Sistema : E-mail não encontrado
+        Sistema -> Sistema : Criptografar senha
+        Sistema -> BD : Salvar usuário e perfil inicial
+        BD --> Sistema : Cadastro salvo com sucesso
+        Sistema --> Usuario : Confirmar cadastro realizado
+    end
+end
+
+@enduml
