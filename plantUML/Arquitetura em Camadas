@@ -1,0 +1,66 @@
+@startuml
+title Arquitetura em Camadas - AraMatch
+
+package "Camada de Apresentação" {
+  [Interface do Usuário]
+  [Interface do Administrador]
+}
+
+package "Camada de Aplicação" {
+  [Controle de Autenticação]
+  [Controle de Perfil]
+  [Controle de Match]
+  [Controle de Mensagens]
+  [Controle de Denúncias]
+}
+
+package "Camada de Domínio" {
+  [Serviço de Usuário]
+  [Serviço de Recomendação]
+  [Serviço de Match]
+  [Serviço de Mensagem]
+  [Serviço de Moderação]
+}
+
+package "Camada de Persistência" {
+  [Repositório de Usuários]
+  [Repositório de Perfis]
+  [Repositório de Curtidas]
+  [Repositório de Matches]
+  [Repositório de Mensagens]
+  [Repositório de Denúncias]
+}
+
+database "Banco de Dados AraMatch" as BD
+
+[Interface do Usuário] --> [Controle de Autenticação]
+[Interface do Usuário] --> [Controle de Perfil]
+[Interface do Usuário] --> [Controle de Match]
+[Interface do Usuário] --> [Controle de Mensagens]
+[Interface do Usuário] --> [Controle de Denúncias]
+
+[Interface do Administrador] --> [Controle de Denúncias]
+
+[Controle de Autenticação] --> [Serviço de Usuário]
+[Controle de Perfil] --> [Serviço de Usuário]
+[Controle de Match] --> [Serviço de Match]
+[Controle de Match] --> [Serviço de Recomendação]
+[Controle de Mensagens] --> [Serviço de Mensagem]
+[Controle de Denúncias] --> [Serviço de Moderação]
+
+[Serviço de Usuário] --> [Repositório de Usuários]
+[Serviço de Usuário] --> [Repositório de Perfis]
+[Serviço de Recomendação] --> [Repositório de Perfis]
+[Serviço de Match] --> [Repositório de Curtidas]
+[Serviço de Match] --> [Repositório de Matches]
+[Serviço de Mensagem] --> [Repositório de Mensagens]
+[Serviço de Moderação] --> [Repositório de Denúncias]
+
+[Repositório de Usuários] --> BD
+[Repositório de Perfis] --> BD
+[Repositório de Curtidas] --> BD
+[Repositório de Matches] --> BD
+[Repositório de Mensagens] --> BD
+[Repositório de Denúncias] --> BD
+
+@enduml
