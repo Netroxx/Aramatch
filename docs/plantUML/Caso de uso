@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+
+actor "Usuário\nuniversitário" as Usuario
+actor "Sistema de\nrecomendação" as Recomendacao
+actor "Administrador" as Admin
+
+rectangle "Aramuni Match" {
+
+  usecase "UC-01\nCadastrar-se" as UC01
+  usecase "UC-02\nRealizar login" as UC02
+  usecase "UC-03\nEditar perfil" as UC03
+  usecase "UC-04\nDefinir preferências" as UC04
+  usecase "UC-05\nVisualizar sugestões" as UC05
+  usecase "UC-06\nCurtir perfil" as UC06
+  usecase "UC-07\nGerar match" as UC07
+  usecase "UC-08\nEnviar mensagem" as UC08
+  usecase "UC-09\nDenunciar usuário" as UC09
+  usecase "UC-10\nGerenciar denúncias" as UC10
+  usecase "UC-11\nBloquear usuário" as UC11
+  usecase "UC-12\nDesfazer match" as UC12
+}
+
+Usuario --> UC01
+Usuario --> UC02
+Usuario --> UC03
+Usuario --> UC04
+Usuario --> UC05
+Usuario --> UC06
+Usuario --> UC08
+Usuario --> UC09
+Usuario --> UC11
+Usuario --> UC12
+
+Recomendacao --> UC05
+Recomendacao --> UC07
+
+Admin --> UC10
+
+UC06 ..> UC07 : <<include>>
+UC09 ..> UC10 : <<include>>
+UC08 ..> UC07 : <<include>>
+
+@enduml
