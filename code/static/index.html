@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AraMatch - Conexão Universitária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+    <div id="app" class="max-w-md mx-auto min-h-screen bg-white shadow-xl flex flex-col">
+        <!-- Cabeçalho -->
+        <header class="bg-gradient-to-r from-rose-500 to-indigo-600 text-white p-4 flex justify-between items-center shadow-md">
+            <h1 class="text-xl font-black tracking-wider flex items-center gap-1">💘 AraMatch</h1>
+            <div id="user-info" class="text-sm font-medium"></div>
+        </header>
+
+        <!-- Conteúdo Dinâmico -->
+        <main class="flex-1 p-4 overflow-y-auto pb-20">
+            <!-- TELA 1: CADASTRO / LOGIN SIMULADO -->
+            <div id="screen-auth" class="space-y-4">
+                <div class="text-center my-6">
+                    <h2 class="text-2xl font-bold text-slate-900">Conecte-se na sua Universidade</h2>
+                    <p class="text-sm text-slate-500 mt-1">Encontre amizades e relacionamentos acadêmicos.</p>
+                </div>
+                <div class="space-y-3">
+                    <input type="text" id="reg-nome" placeholder="Seu Nome Completo" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <input type="email" id="reg-email" placeholder="E-mail Acadêmico (@pucminas.br)" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <input type="password" id="reg-senha" placeholder="Senha" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <input type="text" id="reg-curso" placeholder="Curso (ex: Engenharia de Software)" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <input type="text" id="reg-periodo" placeholder="Período (ex: 5º Período)" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <input type="text" id="reg-univ" placeholder="Universidade (ex: PUC Minas)" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none">
+                    <textarea id="reg-bio" placeholder="Fale um pouco sobre você..." class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+                    <button onclick="cadastrar()" class="w-full bg-rose-500 text-white font-bold p-3 rounded-xl shadow-lg hover:bg-rose-600 transition">Criar Conta</button>
+                    <button onclick="fazerLoginDemo()" class="w-full bg-slate-100 text-slate-700 font-semibold p-3 rounded-xl hover:bg-slate-200 transition">Entrar com ID padrão (1)</button>
+                </div>
+            </div>
+
+            <!-- TELA 2: DESCOBERTA / SWIPE DE PERFIS -->
+            <div id="screen-discover" class="hidden flex flex-col items-center">
+                <div id="card-container" class="w-full bg-white border rounded-2xl shadow-lg overflow-hidden relative">
+                    <div class="h-80 bg-slate-200 flex items-center justify-center text-slate-400 font-bold text-lg">Foto do Universitário</div>
+                    <div class="p-5 space-y-2">
+                        <h3 id="card-nome" class="text-2xl font-bold text-slate-900">Nome, 22</h3>
+                        <p id="card-curso" class="text-rose-600 font-medium text-sm">Curso • Período</p>
+                        <p id="card-univ" class="text-slate-500 text-xs">Universidade</p>
+                        <p id="card-bio" class="text-slate-600 text-sm mt-3 pt-3 border-t">Bio do usuário...</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 mt-6 w-full justify-center">
+                    <button onclick="curtir(false)" class="w-16 h-16 bg-white border-2 border-slate-200 rounded-full shadow flex items-center justify-center text-2xl hover:scale-105 transition">❌</button>
+                    <button onclick="curtir(true)" class="w-16 h-16 bg-rose-500 text-white rounded-full shadow-lg flex items-center justify-center text-2xl hover:scale-105 transition">💖</button>
+                </div>
+            </div>
+
+            <!-- TELA 3: MATCHES E CHAT -->
+            <div id="screen-matches" class="hidden space-y-4">
+                <h3 class="font-bold text-lg text-slate-900">Seus Matches Ativos</h3>
+                <div id="matches-list" class="space-y-2"></div>
+                
+                <div id="chat-box" class="hidden border rounded-xl p-4 bg-slate-50 mt-4 flex flex-col h-80">
+                    <div class="flex justify-between items-center border-b pb-2 mb-2">
+                        <h4 id="chat-title" class="font-bold text-rose-600"></h4>
+                        <button onclick="fecharChat()" class="text-xs text-slate-400 hover:text-slate-600">Fechar</button>
+                    </div>
+                    <div id="chat-messages" class="flex-1 overflow-y-auto space-y-2 pr-2 text-sm"></div>
+                    <div class="flex gap-2 mt-2 pt-2 border-t">
+                        <input type="text" id="msg-input" placeholder="Digite sua mensagem..." class="flex-1 border p-2 rounded-lg text-sm outline-none">
+                        <button onclick="enviarMensagem()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Menu Inferior -->
+        <nav class="bg-white border-t p-3 flex justify-around fixed bottom-0 max-w-md w-full shadow-lg">
+            <button onclick="mudarTela('discover')" class="text-rose-500 font-bold text-sm">🔥 Descobrir</button>
+            <button onclick="mudarTela('matches')" class="text-slate-500 font-bold text-sm">💬 Matches & Chat</button>
+        </nav>
+    </div>
+
+    <script>
+        let usuarioAtualId = localStorage.getItem('aramatch_user_id') || null;
+        let perfisSugeridos = [];
+        let perfilAtualIndex = 0;
+        let conversaAtivaId = null;
+
+        window.onload = () => {
+            if (usuarioAtualId) {
+                mudarTela('discover');
+            }
+        }
+
+        async function cadastrar() {
+            const payload = {
+                nome: document.getElementById('reg-nome').value,
+                email: document.getElementById('reg-email').value,
+                senha: document.getElementById('reg-senha').value,
+                curso: document.getElementById('reg-curso').value,
+                periodo: document.getElementById('reg-periodo').value,
+                universidade: document.getElementById('reg-univ').value,
+                bio: document.getElementById('reg-bio').value
+            };
+            const res = await fetch('/api/usuarios', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                usuarioAtualId = data.id_usuario;
+                localStorage.setItem('aramatch_user_id', usuarioAtualId);
+                alert('Cadastro realizado com sucesso!');
+                mudarTela('discover');
+            } else {
+                alert(data.detail);
+            }
+        }
+
+        function fazerLoginDemo() {
+            usuarioAtualId = 1;
+            localStorage.setItem('aramatch_user_id', 1);
+            mudarTela('discover');
+        }
+
+        function mudarTela(tela) {
+            document.getElementById('screen-auth').classList.add('hidden');
+            document.getElementById('screen-discover').classList.add('hidden');
+            document.getElementById('screen-matches').classList.add('hidden');
+
+            if (!usuarioAtualId) {
+                document.getElementById('screen-auth').classList.remove('hidden');
+                return;
+            }
+
+            if (tela === 'discover') {
+                document.getElementById('screen-discover').classList.remove('hidden');
+                carregarSugestoes();
+            } else if (tela === 'matches') {
+                document.getElementById('screen-matches').classList.remove('hidden');
+                carregarMatches();
+            }
+        }
+
+        async function carregarSugestoes() {
+            const res = await fetch(`/api/perfis/${usuarioAtualId}`);
+            perfisSugeridos = await res.json();
+            perfilAtualIndex = 0;
+            exibirPerfilAtual();
+        }
+
+        function exibirPerfilAtual() {
+            const container = document.getElementById('card-container');
+            if (perfisSugeridos.length === 0 || perfilAtualIndex >= perfisSugeridos.length) {
+                container.innerHTML = `<div class="p-10 text-center text-slate-500">Não há mais perfis disponíveis no momento! Volte mais tarde.</div>`;
+                return;
+            }
+            const p = perfisSugeridos[perfilAtualIndex];
+            document.getElementById('card-nome').innerText = `${p.curso} - Período ${p.periodo}`;
+            document.getElementById('card-curso').innerText = p.universidade;
+            document.getElementById('card-bio').innerText = p.bio || 'Sem biografia informada.';
+        }
+
+        async function curtir(gostar) {
+            if (perfisSugeridos.length === 0 || perfilAtualIndex >= perfisSugeridos.length) return;
+            const target = perfisSugeridos[perfilAtualIndex];
+
+            if (gostar) {
+                const res = await fetch('/api/curtidas', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({usuario_origem: parseInt(usuarioAtualId), usuario_destino: target.id_usuario})
+                });
+                const data = await res.json();
+                if (data.match) {
+                    alert('🎉 Deu MATCH! Novo vínculo criado.');
+                }
+            }
+            perfilAtualIndex++;
+            exibirPerfilAtual();
+        }
+
+        async function carregarMatches() {
+            const res = await fetch(`/api/matches/${usuarioAtualId}`);
+            const matches = await res.json();
+            const list = document.getElementById('matches-list');
+            list.innerHTML = '';
+            if (matches.length === 0) {
+                list.innerHTML = `<p class="text-sm text-slate-400">Nenhum match gerado ainda. Continue curtindo perfis!</p>`;
+                return;
+            }
+            matches.forEach(m => {
+                list.innerHTML += `
+                    <div class="flex justify-between items-center p-3 border rounded-xl hover:bg-slate-50">
+                        <div>
+                            <p class="font-bold text-slate-900">${m.nome}</p>
+                            <p class="text-xs text-slate-500">${m.curso} • ${m.universidade}</p>
+                        </div>
+                        <button onclick="abrirChat(${m.id_conversa}, '${m.nome}')" class="bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg font-semibold shadow">Conversar</button>
+                    </div>
+                `;
+            });
+        }
+
+        async function abrirChat(idConversa, nome) {
+            conversaAtivaId = idConversa;
+            document.getElementById('chat-box').classList.remove('hidden');
+            document.getElementById('chat-title').innerText = `Chat com ${nome}`;
+            atualizarMensagens();
+        }
+
+        function fecharChat() {
+            conversaAtivaId = null;
+            document.getElementById('chat-box').classList.add('hidden');
+        }
+
+        async function atualizarMensagens() {
+            if (!conversaAtivaId) return;
+            const res = await fetch(`/api/mensagens/${conversaAtivaId}`);
+            const msgs = await res.json();
+            const chatDiv = document.getElementById('chat-messages');
+            chatDiv.innerHTML = '';
+            msgs.forEach(msg => {
+                const isMe = msg.id_remetente == usuarioAtualId;
+                chatDiv.innerHTML += `
+                    <div class="flex ${isMe ? 'justify-end' : 'justify-start'}">
+                        <div class="p-2 rounded-lg max-w-xs text-xs ${isMe ? 'bg-rose-500 text-white' : 'bg-slate-200 text-slate-800'}">
+                            ${msg.conteudo}
+                        </div>
+                    </div>
+                `;
+            });
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        async function enviarMensagem() {
+            const input = document.getElementById('msg-input');
+            const conteudo = input.value.trim();
+            if (!conteudo || !conversaAtivaId) return;
+
+            await fetch('/api/mensagens', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    id_conversa: conversaAtivaId,
+                    id_remetente: parseInt(usuarioAtualId),
+                    conteudo: conteudo
+                })
+            });
+            input.value = '';
+            atualizarMensagens();
+        }
+
+        setInterval(() => {
+            if (conversaAtivaId) atualizarMensagens();
+        }, 3000);
+    </script>
+</body>
+</html>
